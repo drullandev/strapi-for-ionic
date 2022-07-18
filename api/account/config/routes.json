@@ -1,0 +1,12 @@
+{
+    "routes": [
+      {
+        "method": "PUT",
+        "path": "/account/updateUser",
+        "handler": "account.updateUser",
+        "config": {
+          "policies": []
+        }
+      }
+    ]
+  }

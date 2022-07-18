@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_row_types_ion_elements",
+  "info": {
+    "name": "ion_element",
+    "icon": "allergies",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "string"
+    },
+    "main": {
+      "type": "boolean"
+    },
+    "component": {
+      "model": "component"
+    },
+    "exact": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "iconOut": {
+      "type": "string"
+    }
+  }
+}

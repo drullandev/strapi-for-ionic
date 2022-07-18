@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_row_types_children",
+  "info": {
+    "name": "children",
+    "icon": "arrow-alt-circle-right",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "menu": {
+      "model": "menu"
+    },
+    "area": {
+      "model": "areas"
+    },
+    "page": {
+      "model": "page"
+    }
+  }
+}

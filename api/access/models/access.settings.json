@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "accesses",
+  "info": {
+    "name": "Access",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "calendarOutline",
+        "peopleOutline",
+        "mapOutline",
+        "informationCircleOutline",
+        "person",
+        "help",
+        "logOut",
+        "logIn",
+        "personAdd"
+      ],
+      "required": true
+    },
+    "navigation": {
+      "model": "navigationitem",
+      "plugin": "navigation",
+      "via": "related",
+      "configurable": false,
+      "hidden": true
+    }
+  }
+}

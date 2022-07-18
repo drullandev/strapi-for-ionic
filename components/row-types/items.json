@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_row_types_items",
+  "info": {
+    "name": "items",
+    "icon": "angle-double-right",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "submenu": {
+      "model": "menu-item"
+    }
+  }
+}

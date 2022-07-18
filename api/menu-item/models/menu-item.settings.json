@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "menu_items",
+  "info": {
+    "name": "menu item",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "html_element": {
+      "type": "component",
+      "repeatable": false,
+      "component": "row-types.html-element",
+      "required": true
+    },
+    "children": {
+      "type": "component",
+      "repeatable": true,
+      "component": "row-types.items"
+    },
+    "path": {
+      "type": "component",
+      "repeatable": false,
+      "component": "row-types.path"
+    }
+  }
+}

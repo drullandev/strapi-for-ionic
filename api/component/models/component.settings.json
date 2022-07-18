@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "components",
+  "info": {
+    "name": "component"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    }
+  }
+}

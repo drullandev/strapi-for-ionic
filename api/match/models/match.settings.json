@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "matches",
+  "info": {
+    "name": "match",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "matches"
+    },
+    "match": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "relation": {
+      "type": "enumeration",
+      "enum": [
+        "inviting",
+        "friend",
+        "banned",
+        "blocked"
+      ]
+    }
+  }
+}

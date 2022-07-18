@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_row_types_rules",
+  "info": {
+    "name": "rules",
+    "icon": "address-card",
+    "description": "The way to customize the form input limits..."
+  },
+  "options": {},
+  "attributes": {
+    "param": {
+      "type": "enumeration",
+      "enum": [
+        "required",
+        "enabled",
+        "color",
+        "route",
+        "min",
+        "max"
+      ]
+    },
+    "value": {
+      "type": "enumeration",
+      "enum": [
+        "_true",
+        "_false",
+        "param"
+      ]
+    },
+    "boolean": {
+      "type": "boolean",
+      "required": false
+    }
+  }
+}

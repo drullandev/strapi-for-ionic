@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_row_types_statuses",
+  "info": {
+    "name": "status",
+    "icon": "adjust",
+    "description": "This status are used in many places as row..."
+  },
+  "options": {},
+  "attributes": {
+    "key": {
+      "type": "string"
+    },
+    "value": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "moreInfo": {
+      "type": "string"
+    }
+  }
+}

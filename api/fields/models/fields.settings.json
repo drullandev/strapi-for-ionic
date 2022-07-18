@@ -1,0 +1,66 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fields",
+  "info": {
+    "name": "fields",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "field_name": {
+      "pluginOptions": {},
+      "type": "string",
+      "required": true,
+      "private": true
+    },
+    "fieldType": {
+      "pluginOptions": {},
+      "type": "enumeration",
+      "enum": [
+        "input",
+        "check",
+        "text"
+      ],
+      "default": "input",
+      "required": true
+    },
+    "name": {
+      "pluginOptions": {},
+      "type": "string",
+      "required": true,
+      "minLength": 5,
+      "unique": false
+    },
+    "label": {
+      "pluginOptions": {},
+      "type": "string"
+    },
+    "placeholder": {
+      "pluginOptions": {},
+      "type": "string",
+      "minLength": 10
+    },
+    "type": {
+      "pluginOptions": {},
+      "type": "enumeration",
+      "enum": [
+        "text",
+        "password",
+        "number",
+        "email",
+        "check"
+      ]
+    },
+    "rules": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {},
+      "component": "row-types.rules"
+    }
+  }
+}

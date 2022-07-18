@@ -1,0 +1,44 @@
+{
+  "kind": "singleType",
+  "collectionName": "support",
+  "info": {
+    "name": "support",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "i18nLocale": {
+      "plugin": "i18n",
+      "model": "locale"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "subject": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "explanation": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "richtext"
+    }
+  }
+}

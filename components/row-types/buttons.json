@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_row_types_buttons",
+  "info": {
+    "name": "buttons",
+    "icon": "align-left",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "button": {
+      "model": "buttons"
+    },
+    "rules": {
+      "type": "component",
+      "repeatable": true,
+      "component": "row-types.rules"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_row_types_form_fields",
+  "info": {
+    "name": "form_fields",
+    "icon": "align-justify",
+    "description": "The form fields are a way to link forms and inputs..."
+  },
+  "options": {},
+  "attributes": {
+    "field": {
+      "model": "fields"
+    },
+    "rules": {
+      "type": "component",
+      "repeatable": true,
+      "component": "row-types.rules"
+    }
+  }
+}

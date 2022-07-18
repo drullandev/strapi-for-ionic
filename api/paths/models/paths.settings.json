@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "paths",
+  "info": {
+    "name": "paths",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "path": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "minLength": 3,
+      "maxLength": 120
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "ion_element": {
+      "type": "component",
+      "repeatable": false,
+      "component": "row-types.ion-element",
+      "required": true,
+      "max": 1,
+      "min": 1
+    },
+    "permissions": {
+      "plugin": "users-permissions",
+      "collection": "role",
+      "via": "path"
+    }
+  }
+}

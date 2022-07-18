@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "settings",
+  "info": {
+    "name": "settings",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "setting": {
+      "type": "component",
+      "repeatable": true,
+      "component": "row-types.setting",
+      "min": 1,
+      "required": true
+    },
+    "status": {
+      "type": "component",
+      "repeatable": true,
+      "component": "row-types.status"
+    },
+    "appImages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "row-types.app-images"
+    }
+  }
+}

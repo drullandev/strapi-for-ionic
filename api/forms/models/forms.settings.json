@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "forms",
+  "info": {
+    "name": "forms",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "pluginOptions": {}
+    },
+    "fields": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {},
+      "component": "row-types.form-fields",
+      "min": 1,
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "row-types.buttons"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_row_types_settings",
+  "info": {
+    "name": "Setting",
+    "icon": "ad",
+    "description": "In this area you can perform a settings cosllection..."
+  },
+  "options": {},
+  "attributes": {
+    "key": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

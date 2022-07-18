@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_row_types_html_elements",
+  "info": {
+    "name": "html_element",
+    "icon": "align-center"
+  },
+  "options": {},
+  "attributes": {
+    "identifier": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}
