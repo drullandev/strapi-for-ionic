@@ -12,30 +12,113 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+-- Volcando estructura de base de datos para strapi-for-ionic
+DROP DATABASE IF EXISTS `strapi-for-ionic`;
+CREATE DATABASE IF NOT EXISTS `strapi-for-ionic` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `strapi-for-ionic`;
+
+-- Volcando estructura para tabla strapi-for-ionic.abouts
+DROP TABLE IF EXISTS `abouts`;
+CREATE TABLE IF NOT EXISTS `abouts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `content` longtext,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `label` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.abouts: ~0 rows (aproximadamente)
 DELETE FROM `abouts`;
 /*!40000 ALTER TABLE `abouts` DISABLE KEYS */;
 /*!40000 ALTER TABLE `abouts` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.abouts__allowed_roles
+DROP TABLE IF EXISTS `abouts__allowed_roles`;
+CREATE TABLE IF NOT EXISTS `abouts__allowed_roles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `about_id` int(11) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.abouts__allowed_roles: ~0 rows (aproximadamente)
 DELETE FROM `abouts__allowed_roles`;
 /*!40000 ALTER TABLE `abouts__allowed_roles` DISABLE KEYS */;
 /*!40000 ALTER TABLE `abouts__allowed_roles` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.about_pages
+DROP TABLE IF EXISTS `about_pages`;
+CREATE TABLE IF NOT EXISTS `about_pages` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `locale` varchar(255) DEFAULT NULL,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.about_pages: ~0 rows (aproximadamente)
 DELETE FROM `about_pages`;
 /*!40000 ALTER TABLE `about_pages` DISABLE KEYS */;
 /*!40000 ALTER TABLE `about_pages` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.about_pages__localizations
+DROP TABLE IF EXISTS `about_pages__localizations`;
+CREATE TABLE IF NOT EXISTS `about_pages__localizations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `about_page_id` int(11) DEFAULT NULL,
+  `about-page_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.about_pages__localizations: ~0 rows (aproximadamente)
 DELETE FROM `about_pages__localizations`;
 /*!40000 ALTER TABLE `about_pages__localizations` DISABLE KEYS */;
 /*!40000 ALTER TABLE `about_pages__localizations` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.accesses
+DROP TABLE IF EXISTS `accesses`;
+CREATE TABLE IF NOT EXISTS `accesses` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.accesses: ~0 rows (aproximadamente)
 DELETE FROM `accesses`;
 /*!40000 ALTER TABLE `accesses` DISABLE KEYS */;
 /*!40000 ALTER TABLE `accesses` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.areas
+DROP TABLE IF EXISTS `areas`;
+CREATE TABLE IF NOT EXISTS `areas` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `position` varchar(255) NOT NULL,
+  `page` int(11) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `areas_slug_unique` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.areas: ~6 rows (aproximadamente)
 DELETE FROM `areas`;
@@ -49,6 +132,20 @@ INSERT INTO `areas` (`id`, `name`, `title`, `position`, `page`, `slug`, `created
 	(9, 'User menu', 'User menu', 'top', NULL, 'user-menu', 1, '2021-09-07 19:55:33', 1, '2021-09-08 19:58:16'),
 	(10, 'Page', 'Page area', 'start', NULL, 'page', 1, '2021-09-10 19:45:24', 1, '2021-09-10 19:46:19');
 /*!40000 ALTER TABLE `areas` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.areas_components
+DROP TABLE IF EXISTS `areas_components`;
+CREATE TABLE IF NOT EXISTS `areas_components` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `field` varchar(255) NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  `component_type` varchar(255) NOT NULL,
+  `component_id` int(11) NOT NULL,
+  `area_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `area_id_fk` (`area_id`),
+  CONSTRAINT `area_id_fk` FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.areas_components: ~8 rows (aproximadamente)
 DELETE FROM `areas_components`;
@@ -66,6 +163,15 @@ INSERT INTO `areas_components` (`id`, `field`, `order`, `component_type`, `compo
 	(10, 'children', 4, 'components_row_types_children', 10, 10);
 /*!40000 ALTER TABLE `areas_components` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.areas__areas
+DROP TABLE IF EXISTS `areas__areas`;
+CREATE TABLE IF NOT EXISTS `areas__areas` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `area_id` int(11) DEFAULT NULL,
+  `related_area_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.areas__areas: ~2 rows (aproximadamente)
 DELETE FROM `areas__areas`;
 /*!40000 ALTER TABLE `areas__areas` DISABLE KEYS */;
@@ -74,10 +180,41 @@ INSERT INTO `areas__areas` (`id`, `area_id`, `related_area_id`) VALUES
 	(2, 7, 9);
 /*!40000 ALTER TABLE `areas__areas` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.audience
+DROP TABLE IF EXISTS `audience`;
+CREATE TABLE IF NOT EXISTS `audience` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `key` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `audience_key_unique` (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.audience: ~0 rows (aproximadamente)
 DELETE FROM `audience`;
 /*!40000 ALTER TABLE `audience` DISABLE KEYS */;
 /*!40000 ALTER TABLE `audience` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.buttons
+DROP TABLE IF EXISTS `buttons`;
+CREATE TABLE IF NOT EXISTS `buttons` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `fieldName` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `label` varchar(255) NOT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `locale` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `routeLink` varchar(255) DEFAULT NULL,
+  `routerLink` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `buttons_slug_unique` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.buttons: ~2 rows (aproximadamente)
 DELETE FROM `buttons`;
@@ -87,25 +224,99 @@ INSERT INTO `buttons` (`id`, `fieldName`, `slug`, `label`, `created_by`, `update
 	(2, 'Goto Sign Up', 'goto-signup', 'Sign Up!', 1, 1, '2021-07-16 22:50:45', '2021-09-05 00:11:16', 'en', NULL, NULL, '/form/signup');
 /*!40000 ALTER TABLE `buttons` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.buttons__localizations
+DROP TABLE IF EXISTS `buttons__localizations`;
+CREATE TABLE IF NOT EXISTS `buttons__localizations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `button_id` int(11) DEFAULT NULL,
+  `related_button_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.buttons__localizations: ~0 rows (aproximadamente)
 DELETE FROM `buttons__localizations`;
 /*!40000 ALTER TABLE `buttons__localizations` DISABLE KEYS */;
 /*!40000 ALTER TABLE `buttons__localizations` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.comments
+DROP TABLE IF EXISTS `comments`;
+CREATE TABLE IF NOT EXISTS `comments` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `content` longtext NOT NULL,
+  `blocked` tinyint(1) DEFAULT NULL,
+  `blockedThread` tinyint(1) DEFAULT NULL,
+  `blockReason` varchar(255) DEFAULT NULL,
+  `points` int(11) DEFAULT NULL,
+  `authorUser` int(11) DEFAULT NULL,
+  `authorType` varchar(255) DEFAULT NULL,
+  `authorId` varchar(255) DEFAULT NULL,
+  `authorName` varchar(255) DEFAULT NULL,
+  `authorEmail` varchar(255) DEFAULT NULL,
+  `authorAvatar` varchar(255) DEFAULT NULL,
+  `removed` tinyint(1) DEFAULT NULL,
+  `relatedSlug` varchar(255) DEFAULT NULL,
+  `threadOf` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.comments: ~0 rows (aproximadamente)
 DELETE FROM `comments`;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.comments_morph
+DROP TABLE IF EXISTS `comments_morph`;
+CREATE TABLE IF NOT EXISTS `comments_morph` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `comments_id` int(11) DEFAULT NULL,
+  `related_id` int(11) DEFAULT NULL,
+  `related_type` longtext,
+  `field` longtext,
+  `order` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.comments_morph: ~0 rows (aproximadamente)
 DELETE FROM `comments_morph`;
 /*!40000 ALTER TABLE `comments_morph` DISABLE KEYS */;
 /*!40000 ALTER TABLE `comments_morph` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.comments_report
+DROP TABLE IF EXISTS `comments_report`;
+CREATE TABLE IF NOT EXISTS `comments_report` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `content` longtext,
+  `reason` varchar(255) NOT NULL,
+  `resolved` tinyint(1) DEFAULT NULL,
+  `related` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.comments_report: ~0 rows (aproximadamente)
 DELETE FROM `comments_report`;
 /*!40000 ALTER TABLE `comments_report` DISABLE KEYS */;
 /*!40000 ALTER TABLE `comments_report` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.components
+DROP TABLE IF EXISTS `components`;
+CREATE TABLE IF NOT EXISTS `components` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.components: ~8 rows (aproximadamente)
 DELETE FROM `components`;
@@ -122,6 +333,14 @@ INSERT INTO `components` (`id`, `name`, `published_at`, `created_by`, `updated_b
 	(9, 'FormPage', '2021-09-07 22:59:23', 1, 1, '2021-09-07 22:59:16', '2021-09-07 22:59:23');
 /*!40000 ALTER TABLE `components` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_app_images
+DROP TABLE IF EXISTS `components_row_types_app_images`;
+CREATE TABLE IF NOT EXISTS `components_row_types_app_images` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_app_images: ~0 rows (aproximadamente)
 DELETE FROM `components_row_types_app_images`;
 /*!40000 ALTER TABLE `components_row_types_app_images` DISABLE KEYS */;
@@ -129,6 +348,15 @@ INSERT INTO `components_row_types_app_images` (`id`, `name`) VALUES
 	(1, 'appicon.svg'),
 	(2, 'appicon.png');
 /*!40000 ALTER TABLE `components_row_types_app_images` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_buttons
+DROP TABLE IF EXISTS `components_row_types_buttons`;
+CREATE TABLE IF NOT EXISTS `components_row_types_buttons` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `button` int(11) DEFAULT NULL,
+  `enabled` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_buttons: ~2 rows (aproximadamente)
 DELETE FROM `components_row_types_buttons`;
@@ -139,6 +367,20 @@ INSERT INTO `components_row_types_buttons` (`id`, `button`, `enabled`) VALUES
 	(3, 2, 1);
 /*!40000 ALTER TABLE `components_row_types_buttons` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_buttons_components
+DROP TABLE IF EXISTS `components_row_types_buttons_components`;
+CREATE TABLE IF NOT EXISTS `components_row_types_buttons_components` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `field` varchar(255) NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  `component_type` varchar(255) NOT NULL,
+  `component_id` int(11) NOT NULL,
+  `components_row_types_button_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `components_row_types_button_id_fk` (`components_row_types_button_id`),
+  CONSTRAINT `components_row_types_button_id_fk` FOREIGN KEY (`components_row_types_button_id`) REFERENCES `components_row_types_buttons` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_buttons_components: ~0 rows (aproximadamente)
 DELETE FROM `components_row_types_buttons_components`;
 /*!40000 ALTER TABLE `components_row_types_buttons_components` DISABLE KEYS */;
@@ -147,10 +389,29 @@ INSERT INTO `components_row_types_buttons_components` (`id`, `field`, `order`, `
 	(3, 'rules', 1, 'components_row_types_rules', 13, 2);
 /*!40000 ALTER TABLE `components_row_types_buttons_components` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_buttons__buttons
+DROP TABLE IF EXISTS `components_row_types_buttons__buttons`;
+CREATE TABLE IF NOT EXISTS `components_row_types_buttons__buttons` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `components_row_types_button_id` int(11) DEFAULT NULL,
+  `button_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_buttons__buttons: ~0 rows (aproximadamente)
 DELETE FROM `components_row_types_buttons__buttons`;
 /*!40000 ALTER TABLE `components_row_types_buttons__buttons` DISABLE KEYS */;
 /*!40000 ALTER TABLE `components_row_types_buttons__buttons` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_children
+DROP TABLE IF EXISTS `components_row_types_children`;
+CREATE TABLE IF NOT EXISTS `components_row_types_children` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `menu` int(11) DEFAULT NULL,
+  `area` int(11) DEFAULT NULL,
+  `page` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_children: ~8 rows (aproximadamente)
 DELETE FROM `components_row_types_children`;
@@ -168,10 +429,27 @@ INSERT INTO `components_row_types_children` (`id`, `menu`, `area`, `page`) VALUE
 	(10, NULL, 7, NULL);
 /*!40000 ALTER TABLE `components_row_types_children` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_children__menus
+DROP TABLE IF EXISTS `components_row_types_children__menus`;
+CREATE TABLE IF NOT EXISTS `components_row_types_children__menus` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `components_row_types_child_id` int(11) DEFAULT NULL,
+  `menu_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_children__menus: ~0 rows (aproximadamente)
 DELETE FROM `components_row_types_children__menus`;
 /*!40000 ALTER TABLE `components_row_types_children__menus` DISABLE KEYS */;
 /*!40000 ALTER TABLE `components_row_types_children__menus` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_form_fields
+DROP TABLE IF EXISTS `components_row_types_form_fields`;
+CREATE TABLE IF NOT EXISTS `components_row_types_form_fields` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `field` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_form_fields: ~9 rows (aproximadamente)
 DELETE FROM `components_row_types_form_fields`;
@@ -191,6 +469,20 @@ INSERT INTO `components_row_types_form_fields` (`id`, `field`) VALUES
 	(13, 6);
 /*!40000 ALTER TABLE `components_row_types_form_fields` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_form_fields_components
+DROP TABLE IF EXISTS `components_row_types_form_fields_components`;
+CREATE TABLE IF NOT EXISTS `components_row_types_form_fields_components` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `field` varchar(255) NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  `component_type` varchar(255) NOT NULL,
+  `component_id` int(11) NOT NULL,
+  `components_row_types_form_field_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `components_row_types_form_field_id_fk` (`components_row_types_form_field_id`),
+  CONSTRAINT `components_row_types_form_field_id_fk` FOREIGN KEY (`components_row_types_form_field_id`) REFERENCES `components_row_types_form_fields` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_form_fields_components: ~8 rows (aproximadamente)
 DELETE FROM `components_row_types_form_fields_components`;
 /*!40000 ALTER TABLE `components_row_types_form_fields_components` DISABLE KEYS */;
@@ -205,10 +497,28 @@ INSERT INTO `components_row_types_form_fields_components` (`id`, `field`, `order
 	(12, 'rules', 1, 'components_row_types_rules', 20, 13);
 /*!40000 ALTER TABLE `components_row_types_form_fields_components` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_form_fields__fields
+DROP TABLE IF EXISTS `components_row_types_form_fields__fields`;
+CREATE TABLE IF NOT EXISTS `components_row_types_form_fields__fields` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `components_row_types_form_field_id` int(11) DEFAULT NULL,
+  `field_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_form_fields__fields: ~0 rows (aproximadamente)
 DELETE FROM `components_row_types_form_fields__fields`;
 /*!40000 ALTER TABLE `components_row_types_form_fields__fields` DISABLE KEYS */;
 /*!40000 ALTER TABLE `components_row_types_form_fields__fields` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_html_elements
+DROP TABLE IF EXISTS `components_row_types_html_elements`;
+CREATE TABLE IF NOT EXISTS `components_row_types_html_elements` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `identifier` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_html_elements: ~11 rows (aproximadamente)
 DELETE FROM `components_row_types_html_elements`;
@@ -228,6 +538,18 @@ INSERT INTO `components_row_types_html_elements` (`id`, `identifier`, `name`) VA
 	(12, 'signup', 'signup'),
 	(13, 'about', 'about');
 /*!40000 ALTER TABLE `components_row_types_html_elements` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_ion_elements
+DROP TABLE IF EXISTS `components_row_types_ion_elements`;
+CREATE TABLE IF NOT EXISTS `components_row_types_ion_elements` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `component` varchar(255) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `main` tinyint(1) DEFAULT NULL,
+  `exact` tinyint(1) DEFAULT NULL,
+  `iconOut` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_ion_elements: ~17 rows (aproximadamente)
 DELETE FROM `components_row_types_ion_elements`;
@@ -253,6 +575,14 @@ INSERT INTO `components_row_types_ion_elements` (`id`, `component`, `icon`, `mai
 	(18, '2', NULL, NULL, 0, NULL);
 /*!40000 ALTER TABLE `components_row_types_ion_elements` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_items
+DROP TABLE IF EXISTS `components_row_types_items`;
+CREATE TABLE IF NOT EXISTS `components_row_types_items` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `submenu` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_items: ~0 rows (aproximadamente)
 DELETE FROM `components_row_types_items`;
 /*!40000 ALTER TABLE `components_row_types_items` DISABLE KEYS */;
@@ -260,10 +590,28 @@ INSERT INTO `components_row_types_items` (`id`, `submenu`) VALUES
 	(1, NULL);
 /*!40000 ALTER TABLE `components_row_types_items` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_items__submenus
+DROP TABLE IF EXISTS `components_row_types_items__submenus`;
+CREATE TABLE IF NOT EXISTS `components_row_types_items__submenus` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `components_row_types_item_id` int(11) DEFAULT NULL,
+  `menu-item_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_items__submenus: ~0 rows (aproximadamente)
 DELETE FROM `components_row_types_items__submenus`;
 /*!40000 ALTER TABLE `components_row_types_items__submenus` DISABLE KEYS */;
 /*!40000 ALTER TABLE `components_row_types_items__submenus` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_paths
+DROP TABLE IF EXISTS `components_row_types_paths`;
+CREATE TABLE IF NOT EXISTS `components_row_types_paths` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `path` int(11) DEFAULT NULL,
+  `exact` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_paths: ~12 rows (aproximadamente)
 DELETE FROM `components_row_types_paths`;
@@ -283,6 +631,16 @@ INSERT INTO `components_row_types_paths` (`id`, `path`, `exact`) VALUES
 	(12, 2, NULL),
 	(13, 4, NULL);
 /*!40000 ALTER TABLE `components_row_types_paths` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_permissions
+DROP TABLE IF EXISTS `components_row_types_permissions`;
+CREATE TABLE IF NOT EXISTS `components_row_types_permissions` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `users_permissions_role` int(11) DEFAULT NULL,
+  `allowed` tinyint(1) DEFAULT NULL,
+  `role` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_permissions: ~59 rows (aproximadamente)
 DELETE FROM `components_row_types_permissions`;
@@ -352,6 +710,21 @@ INSERT INTO `components_row_types_permissions` (`id`, `users_permissions_role`, 
 	(62, NULL, 0, NULL);
 /*!40000 ALTER TABLE `components_row_types_permissions` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_rules
+DROP TABLE IF EXISTS `components_row_types_rules`;
+CREATE TABLE IF NOT EXISTS `components_row_types_rules` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `param` varchar(255) DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  `boolean` tinyint(1) DEFAULT NULL,
+  `min` int(11) DEFAULT NULL,
+  `max` int(11) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
+  `text` longtext,
+  `shorttext` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_rules: ~12 rows (aproximadamente)
 DELETE FROM `components_row_types_rules`;
 /*!40000 ALTER TABLE `components_row_types_rules` DISABLE KEYS */;
@@ -373,6 +746,15 @@ INSERT INTO `components_row_types_rules` (`id`, `param`, `value`, `boolean`, `mi
 	(20, 'required', NULL, 1, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `components_row_types_rules` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_settings
+DROP TABLE IF EXISTS `components_row_types_settings`;
+CREATE TABLE IF NOT EXISTS `components_row_types_settings` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(255) DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_settings: ~0 rows (aproximadamente)
 DELETE FROM `components_row_types_settings`;
 /*!40000 ALTER TABLE `components_row_types_settings` DISABLE KEYS */;
@@ -380,6 +762,17 @@ INSERT INTO `components_row_types_settings` (`id`, `key`, `value`) VALUES
 	(1, '--ion-font-family', 'Someone'),
 	(2, 'environment', 'development');
 /*!40000 ALTER TABLE `components_row_types_settings` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.components_row_types_statuses
+DROP TABLE IF EXISTS `components_row_types_statuses`;
+CREATE TABLE IF NOT EXISTS `components_row_types_statuses` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(255) DEFAULT NULL,
+  `value` tinyint(1) DEFAULT NULL,
+  `enabled` tinyint(1) DEFAULT NULL,
+  `moreInfo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.components_row_types_statuses: ~4 rows (aproximadamente)
 DELETE FROM `components_row_types_statuses`;
@@ -391,10 +784,36 @@ INSERT INTO `components_row_types_statuses` (`id`, `key`, `value`, `enabled`, `m
 	(4, 'Dark Mode - Update user setting', 1, 1, NULL);
 /*!40000 ALTER TABLE `components_row_types_statuses` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.connections
+DROP TABLE IF EXISTS `connections`;
+CREATE TABLE IF NOT EXISTS `connections` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `users_permissions_user` int(11) DEFAULT NULL,
+  `origin` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `user` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.connections: ~0 rows (aproximadamente)
 DELETE FROM `connections`;
 /*!40000 ALTER TABLE `connections` DISABLE KEYS */;
 /*!40000 ALTER TABLE `connections` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.core_store
+DROP TABLE IF EXISTS `core_store`;
+CREATE TABLE IF NOT EXISTS `core_store` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(255) DEFAULT NULL,
+  `value` longtext,
+  `type` varchar(255) DEFAULT NULL,
+  `environment` varchar(255) DEFAULT NULL,
+  `tag` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.core_store: ~102 rows (aproximadamente)
 DELETE FROM `core_store`;
@@ -512,10 +931,41 @@ INSERT INTO `core_store` (`id`, `key`, `value`, `type`, `environment`, `tag`) VA
 	(111, 'model_def_row-types.permissions', '{"uid":"row-types.permissions","collectionName":"components_row_types_permissions","info":{"name":"permissions","icon":"angle-double-up"},"options":{"timestamps":false},"attributes":{}}', 'object', NULL, NULL);
 /*!40000 ALTER TABLE `core_store` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.events
+DROP TABLE IF EXISTS `events`;
+CREATE TABLE IF NOT EXISTS `events` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `event_name` varchar(255) DEFAULT NULL,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.events: ~0 rows (aproximadamente)
 DELETE FROM `events`;
 /*!40000 ALTER TABLE `events` DISABLE KEYS */;
 /*!40000 ALTER TABLE `events` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.features
+DROP TABLE IF EXISTS `features`;
+CREATE TABLE IF NOT EXISTS `features` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `locale` varchar(255) DEFAULT NULL,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `content` longtext,
+  `enabled` tinyint(1) DEFAULT NULL,
+  `stage` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.features: ~8 rows (aproximadamente)
 DELETE FROM `features`;
@@ -534,6 +984,15 @@ INSERT INTO `features` (`id`, `title`, `locale`, `published_at`, `created_by`, `
 	(11, 'Woocomerce connection', 'en', NULL, 1, 1, '2021-07-16 20:01:58', '2021-07-16 20:01:58', 'The capability to get products from a Woocomerce platform', 0, 'dev');
 /*!40000 ALTER TABLE `features` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.features__localizations
+DROP TABLE IF EXISTS `features__localizations`;
+CREATE TABLE IF NOT EXISTS `features__localizations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `feature_id` int(11) DEFAULT NULL,
+  `related_feature_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.features__localizations: ~6 rows (aproximadamente)
 DELETE FROM `features__localizations`;
 /*!40000 ALTER TABLE `features__localizations` DISABLE KEYS */;
@@ -546,12 +1005,45 @@ INSERT INTO `features__localizations` (`id`, `feature_id`, `related_feature_id`)
 	(6, 5, 6);
 /*!40000 ALTER TABLE `features__localizations` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.feedbacks
+DROP TABLE IF EXISTS `feedbacks`;
+CREATE TABLE IF NOT EXISTS `feedbacks` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user` int(11) DEFAULT NULL,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `comment` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.feedbacks: ~1 rows (aproximadamente)
 DELETE FROM `feedbacks`;
 /*!40000 ALTER TABLE `feedbacks` DISABLE KEYS */;
 INSERT INTO `feedbacks` (`id`, `user`, `published_at`, `created_by`, `updated_by`, `created_at`, `updated_at`, `comment`) VALUES
 	(1, 7, NULL, 1, 1, '2021-09-05 01:17:48', '2021-09-07 19:28:54', NULL);
 /*!40000 ALTER TABLE `feedbacks` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.fields
+DROP TABLE IF EXISTS `fields`;
+CREATE TABLE IF NOT EXISTS `fields` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fieldType` varchar(255) DEFAULT NULL,
+  `field_name` varchar(255) NOT NULL,
+  `htmlName` varchar(255) DEFAULT NULL,
+  `label` varchar(255) DEFAULT NULL,
+  `placeholder` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `fieldName` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.fields: ~7 rows (aproximadamente)
 DELETE FROM `fields`;
@@ -567,6 +1059,20 @@ INSERT INTO `fields` (`id`, `name`, `created_by`, `updated_by`, `created_at`, `u
 	(8, 'Nickname', 1, 1, '2021-09-05 01:33:59', '2021-09-04 23:34:19', 'input', 'nickname', NULL, 'Nickname', NULL, 'text', 'nickname');
 /*!40000 ALTER TABLE `fields` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.fields_components
+DROP TABLE IF EXISTS `fields_components`;
+CREATE TABLE IF NOT EXISTS `fields_components` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `field` varchar(255) NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  `component_type` varchar(255) NOT NULL,
+  `component_id` int(11) NOT NULL,
+  `field_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `field_id_fk` (`field_id`),
+  CONSTRAINT `field_id_fk` FOREIGN KEY (`field_id`) REFERENCES `fields` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.fields_components: ~4 rows (aproximadamente)
 DELETE FROM `fields_components`;
 /*!40000 ALTER TABLE `fields_components` DISABLE KEYS */;
@@ -578,6 +1084,24 @@ INSERT INTO `fields_components` (`id`, `field`, `order`, `component_type`, `comp
 	(5, 'rules', 1, 'components_row_types_rules', 16, 7);
 /*!40000 ALTER TABLE `fields_components` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.forms
+DROP TABLE IF EXISTS `forms`;
+CREATE TABLE IF NOT EXISTS `forms` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `slug` varchar(255) DEFAULT NULL,
+  `enabled` tinyint(1) DEFAULT NULL,
+  `label` varchar(255) DEFAULT NULL,
+  `instructions` longtext,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `forms_slug_unique` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.forms: ~4 rows (aproximadamente)
 DELETE FROM `forms`;
 /*!40000 ALTER TABLE `forms` DISABLE KEYS */;
@@ -587,6 +1111,20 @@ INSERT INTO `forms` (`id`, `name`, `published_at`, `created_by`, `updated_by`, `
 	(3, 'Strapi Recover', '2021-09-04 23:02:05', 1, 1, '2021-07-15 21:52:49', '2021-09-04 23:02:15', 'recover', NULL, NULL, NULL),
 	(4, 'Strapi Contact', '2021-09-04 23:02:02', 1, 1, '2021-07-15 21:53:01', '2021-09-04 23:02:02', 'support', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `forms` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.forms_components
+DROP TABLE IF EXISTS `forms_components`;
+CREATE TABLE IF NOT EXISTS `forms_components` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `field` varchar(255) NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  `component_type` varchar(255) NOT NULL,
+  `component_id` int(11) NOT NULL,
+  `form_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `form_id_fk` (`form_id`),
+  CONSTRAINT `form_id_fk` FOREIGN KEY (`form_id`) REFERENCES `forms` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.forms_components: ~15 rows (aproximadamente)
 DELETE FROM `forms_components`;
@@ -609,6 +1147,20 @@ INSERT INTO `forms_components` (`id`, `field`, `order`, `component_type`, `compo
 	(16, 'fields', 6, 'components_row_types_form_fields', 13, 2);
 /*!40000 ALTER TABLE `forms_components` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.i18n_locales
+DROP TABLE IF EXISTS `i18n_locales`;
+CREATE TABLE IF NOT EXISTS `i18n_locales` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `i18n_locales_code_unique` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.i18n_locales: ~2 rows (aproximadamente)
 DELETE FROM `i18n_locales`;
 /*!40000 ALTER TABLE `i18n_locales` DISABLE KEYS */;
@@ -617,10 +1169,39 @@ INSERT INTO `i18n_locales` (`id`, `name`, `code`, `created_by`, `updated_by`, `c
 	(2, 'Spanish (Spain)', 'es-ES', 1, 1, '2021-06-16 23:24:23', '2021-06-16 23:24:37');
 /*!40000 ALTER TABLE `i18n_locales` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.locations
+DROP TABLE IF EXISTS `locations`;
+CREATE TABLE IF NOT EXISTS `locations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `lat` double DEFAULT NULL,
+  `lng` double DEFAULT NULL,
+  `zoom` double DEFAULT NULL,
+  `geoJson` longtext,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.locations: ~0 rows (aproximadamente)
 DELETE FROM `locations`;
 /*!40000 ALTER TABLE `locations` DISABLE KEYS */;
 /*!40000 ALTER TABLE `locations` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.matches
+DROP TABLE IF EXISTS `matches`;
+CREATE TABLE IF NOT EXISTS `matches` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `user` int(11) DEFAULT NULL,
+  `match` int(11) DEFAULT NULL,
+  `relation` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.matches: ~2 rows (aproximadamente)
 DELETE FROM `matches`;
@@ -630,10 +1211,28 @@ INSERT INTO `matches` (`id`, `created_by`, `updated_by`, `created_at`, `updated_
 	(3, 1, 1, '2021-09-07 19:31:45', '2021-09-07 19:31:45', 2, 3, NULL);
 /*!40000 ALTER TABLE `matches` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.matches_users__users_matches
+DROP TABLE IF EXISTS `matches_users__users_matches`;
+CREATE TABLE IF NOT EXISTS `matches_users__users_matches` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `match_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.matches_users__users_matches: ~0 rows (aproximadamente)
 DELETE FROM `matches_users__users_matches`;
 /*!40000 ALTER TABLE `matches_users__users_matches` DISABLE KEYS */;
 /*!40000 ALTER TABLE `matches_users__users_matches` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.matches__matches
+DROP TABLE IF EXISTS `matches__matches`;
+CREATE TABLE IF NOT EXISTS `matches__matches` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `match_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.matches__matches: ~0 rows (aproximadamente)
 DELETE FROM `matches__matches`;
@@ -641,6 +1240,21 @@ DELETE FROM `matches__matches`;
 INSERT INTO `matches__matches` (`id`, `match_id`, `user_id`) VALUES
 	(1, 1, 1);
 /*!40000 ALTER TABLE `matches__matches` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.menus
+DROP TABLE IF EXISTS `menus`;
+CREATE TABLE IF NOT EXISTS `menus` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `slot` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `menus_slug_unique` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.menus: ~3 rows (aproximadamente)
 DELETE FROM `menus`;
@@ -650,6 +1264,15 @@ INSERT INTO `menus` (`id`, `name`, `slug`, `slot`, `created_by`, `updated_by`, `
 	(2, 'User Menu', 'user-sidenav', 'start', 1, 1, '2021-09-07 21:15:44', '2021-09-07 21:28:45'),
 	(3, 'Main footer', 'main-footer', 'bottom', 1, 1, '2021-09-07 21:40:05', '2021-09-07 23:44:51');
 /*!40000 ALTER TABLE `menus` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.menus__menu_items
+DROP TABLE IF EXISTS `menus__menu_items`;
+CREATE TABLE IF NOT EXISTS `menus__menu_items` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `menu_id` int(11) DEFAULT NULL,
+  `menu-item_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.menus__menu_items: ~9 rows (aproximadamente)
 DELETE FROM `menus__menu_items`;
@@ -670,6 +1293,20 @@ INSERT INTO `menus__menu_items` (`id`, `menu_id`, `menu-item_id`) VALUES
 	(14, 3, 14);
 /*!40000 ALTER TABLE `menus__menu_items` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.menu_items
+DROP TABLE IF EXISTS `menu_items`;
+CREATE TABLE IF NOT EXISTS `menu_items` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `label` varchar(255) DEFAULT NULL,
+  `component` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.menu_items: ~13 rows (aproximadamente)
 DELETE FROM `menu_items`;
 /*!40000 ALTER TABLE `menu_items` DISABLE KEYS */;
@@ -688,6 +1325,20 @@ INSERT INTO `menu_items` (`id`, `title`, `label`, `component`, `created_by`, `up
 	(13, NULL, 'Map Tab', NULL, 1, 1, '2021-09-07 22:09:47', '2021-09-07 23:27:08'),
 	(14, NULL, 'About Tab', NULL, 1, 1, '2021-09-07 23:44:38', '2021-09-07 23:44:38');
 /*!40000 ALTER TABLE `menu_items` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.menu_items_components
+DROP TABLE IF EXISTS `menu_items_components`;
+CREATE TABLE IF NOT EXISTS `menu_items_components` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `field` varchar(255) NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  `component_type` varchar(255) NOT NULL,
+  `component_id` int(11) NOT NULL,
+  `menu_item_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `menu_item_id_fk` (`menu_item_id`),
+  CONSTRAINT `menu_item_id_fk` FOREIGN KEY (`menu_item_id`) REFERENCES `menu_items` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.menu_items_components: ~38 rows (aproximadamente)
 DELETE FROM `menu_items_components`;
@@ -736,12 +1387,45 @@ INSERT INTO `menu_items_components` (`id`, `field`, `order`, `component_type`, `
 	(43, 'path', 1, 'components_row_types_paths', 13, 14);
 /*!40000 ALTER TABLE `menu_items_components` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.navigations
+DROP TABLE IF EXISTS `navigations`;
+CREATE TABLE IF NOT EXISTS `navigations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` longtext NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `visible` tinyint(1) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `navigations_slug_unique` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.navigations: ~0 rows (aproximadamente)
 DELETE FROM `navigations`;
 /*!40000 ALTER TABLE `navigations` DISABLE KEYS */;
 INSERT INTO `navigations` (`id`, `name`, `slug`, `visible`, `created_by`, `updated_by`) VALUES
 	(1, 'Main navigation', 'main-navigation', 1, NULL, NULL);
 /*!40000 ALTER TABLE `navigations` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.navigations_items
+DROP TABLE IF EXISTS `navigations_items`;
+CREATE TABLE IF NOT EXISTS `navigations_items` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` longtext NOT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `path` longtext,
+  `externalPath` longtext,
+  `uiRouterKey` varchar(255) DEFAULT NULL,
+  `menuAttached` tinyint(1) DEFAULT NULL,
+  `order` int(11) DEFAULT NULL,
+  `parent` int(11) DEFAULT NULL,
+  `master` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.navigations_items: ~0 rows (aproximadamente)
 DELETE FROM `navigations_items`;
@@ -750,15 +1434,49 @@ INSERT INTO `navigations_items` (`id`, `title`, `type`, `path`, `externalPath`, 
 	(1, 'Index', 'EXTERNAL', NULL, 'http://app.index', 'index', 1, 1, NULL, 1, NULL, NULL, '2021-07-01 21:08:40', '2021-07-01 21:08:40');
 /*!40000 ALTER TABLE `navigations_items` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.navigations_items_morph
+DROP TABLE IF EXISTS `navigations_items_morph`;
+CREATE TABLE IF NOT EXISTS `navigations_items_morph` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `navigations_items_id` int(11) DEFAULT NULL,
+  `related_id` int(11) DEFAULT NULL,
+  `related_type` longtext,
+  `field` longtext,
+  `order` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.navigations_items_morph: ~0 rows (aproximadamente)
 DELETE FROM `navigations_items_morph`;
 /*!40000 ALTER TABLE `navigations_items_morph` DISABLE KEYS */;
 /*!40000 ALTER TABLE `navigations_items_morph` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.navigations_items__audience
+DROP TABLE IF EXISTS `navigations_items__audience`;
+CREATE TABLE IF NOT EXISTS `navigations_items__audience` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `navigations_item_id` int(11) DEFAULT NULL,
+  `audience_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.navigations_items__audience: ~0 rows (aproximadamente)
 DELETE FROM `navigations_items__audience`;
 /*!40000 ALTER TABLE `navigations_items__audience` DISABLE KEYS */;
 /*!40000 ALTER TABLE `navigations_items__audience` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.pages
+DROP TABLE IF EXISTS `pages`;
+CREATE TABLE IF NOT EXISTS `pages` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.pages: ~0 rows (aproximadamente)
 DELETE FROM `pages`;
@@ -766,6 +1484,23 @@ DELETE FROM `pages`;
 INSERT INTO `pages` (`id`, `name`, `published_at`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 	(1, 'Login Page', '2021-09-04 22:03:39', 1, 1, '2021-09-04 21:54:31', '2021-09-04 22:03:39');
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.paths
+DROP TABLE IF EXISTS `paths`;
+CREATE TABLE IF NOT EXISTS `paths` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `description` longtext,
+  `path` varchar(255) NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `published_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `paths_path_unique` (`path`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.paths: ~14 rows (aproximadamente)
 DELETE FROM `paths`;
@@ -786,6 +1521,20 @@ INSERT INTO `paths` (`id`, `name`, `description`, `path`, `enabled`, `created_by
 	(14, 'StrapIonic Recover Account', NULL, '/form/recover', 1, 1, '2021-09-07 22:51:39', 1, '2021-09-11 23:50:27', '2021-09-07 22:51:39'),
 	(15, 'Home Or OverSlide (Tutorial)', NULL, '/', 1, 1, '2021-09-08 21:28:54', 1, '2021-09-11 23:49:06', NULL);
 /*!40000 ALTER TABLE `paths` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.paths_components
+DROP TABLE IF EXISTS `paths_components`;
+CREATE TABLE IF NOT EXISTS `paths_components` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `field` varchar(255) NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  `component_type` varchar(255) NOT NULL,
+  `component_id` int(11) NOT NULL,
+  `path_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `path_id_fk` (`path_id`),
+  CONSTRAINT `path_id_fk` FOREIGN KEY (`path_id`) REFERENCES `paths` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.paths_components: ~54 rows (aproximadamente)
 DELETE FROM `paths_components`;
@@ -857,35 +1606,121 @@ INSERT INTO `paths_components` (`id`, `field`, `order`, `component_type`, `compo
 	(64, 'ion_element', 1, 'components_row_types_ion_elements', 18, 15);
 /*!40000 ALTER TABLE `paths_components` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.paths__paths
+DROP TABLE IF EXISTS `paths__paths`;
+CREATE TABLE IF NOT EXISTS `paths__paths` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `path_id` int(11) DEFAULT NULL,
+  `related_path_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.paths__paths: ~0 rows (aproximadamente)
 DELETE FROM `paths__paths`;
 /*!40000 ALTER TABLE `paths__paths` DISABLE KEYS */;
 /*!40000 ALTER TABLE `paths__paths` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.places
+DROP TABLE IF EXISTS `places`;
+CREATE TABLE IF NOT EXISTS `places` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `placeName` varchar(255) DEFAULT NULL,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `location` int(11) DEFAULT NULL,
+  `locale` varchar(255) DEFAULT NULL,
+  `description` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.places: ~0 rows (aproximadamente)
 DELETE FROM `places`;
 /*!40000 ALTER TABLE `places` DISABLE KEYS */;
 /*!40000 ALTER TABLE `places` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.places__localizations
+DROP TABLE IF EXISTS `places__localizations`;
+CREATE TABLE IF NOT EXISTS `places__localizations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `place_id` int(11) DEFAULT NULL,
+  `related_place_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.places__localizations: ~0 rows (aproximadamente)
 DELETE FROM `places__localizations`;
 /*!40000 ALTER TABLE `places__localizations` DISABLE KEYS */;
 /*!40000 ALTER TABLE `places__localizations` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.products
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE IF NOT EXISTS `products` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `partnumber` int(11) DEFAULT NULL,
+  `locale` varchar(255) DEFAULT NULL,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `label` varchar(255) DEFAULT NULL,
+  `description` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.products: ~0 rows (aproximadamente)
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.products__localizations
+DROP TABLE IF EXISTS `products__localizations`;
+CREATE TABLE IF NOT EXISTS `products__localizations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) DEFAULT NULL,
+  `related_product_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.products__localizations: ~0 rows (aproximadamente)
 DELETE FROM `products__localizations`;
 /*!40000 ALTER TABLE `products__localizations` DISABLE KEYS */;
 /*!40000 ALTER TABLE `products__localizations` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.publications
+DROP TABLE IF EXISTS `publications`;
+CREATE TABLE IF NOT EXISTS `publications` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.publications: ~0 rows (aproximadamente)
 DELETE FROM `publications`;
 /*!40000 ALTER TABLE `publications` DISABLE KEYS */;
 /*!40000 ALTER TABLE `publications` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.roadmap
+DROP TABLE IF EXISTS `roadmap`;
+CREATE TABLE IF NOT EXISTS `roadmap` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `stage` varchar(255) DEFAULT NULL,
+  `locale` varchar(255) DEFAULT NULL,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `explanation` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.roadmap: ~1 rows (aproximadamente)
 DELETE FROM `roadmap`;
@@ -894,6 +1729,15 @@ INSERT INTO `roadmap` (`id`, `stage`, `locale`, `published_at`, `created_by`, `u
 	(1, 'Initial', 'en', '2021-07-01 23:23:36', 1, 1, '2021-07-01 23:22:01', '2021-07-01 23:23:36', 'This will be the initial stage, with the most required and common developments between the CMS and the app.'),
 	(2, 'Partial', 'en', NULL, 1, 1, '2021-07-01 23:24:21', '2021-07-01 23:24:27', 'This will be the partial stage, in this stage I\'m prepared to recieve ');
 /*!40000 ALTER TABLE `roadmap` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.roadmap__features
+DROP TABLE IF EXISTS `roadmap__features`;
+CREATE TABLE IF NOT EXISTS `roadmap__features` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `roadmap_id` int(11) DEFAULT NULL,
+  `feature_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.roadmap__features: ~3 rows (aproximadamente)
 DELETE FROM `roadmap__features`;
@@ -904,10 +1748,30 @@ INSERT INTO `roadmap__features` (`id`, `roadmap_id`, `feature_id`) VALUES
 	(3, 1, 7);
 /*!40000 ALTER TABLE `roadmap__features` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.roadmap__localizations
+DROP TABLE IF EXISTS `roadmap__localizations`;
+CREATE TABLE IF NOT EXISTS `roadmap__localizations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `roadmap_id` int(11) DEFAULT NULL,
+  `related_roadmap_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.roadmap__localizations: ~0 rows (aproximadamente)
 DELETE FROM `roadmap__localizations`;
 /*!40000 ALTER TABLE `roadmap__localizations` DISABLE KEYS */;
 /*!40000 ALTER TABLE `roadmap__localizations` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.settings
+DROP TABLE IF EXISTS `settings`;
+CREATE TABLE IF NOT EXISTS `settings` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.settings: ~0 rows (aproximadamente)
 DELETE FROM `settings`;
@@ -915,6 +1779,20 @@ DELETE FROM `settings`;
 INSERT INTO `settings` (`id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 	(1, 1, 1, '2021-06-16 22:27:21', '2021-09-07 01:03:18');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.settings_components
+DROP TABLE IF EXISTS `settings_components`;
+CREATE TABLE IF NOT EXISTS `settings_components` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `field` varchar(255) NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  `component_type` varchar(255) NOT NULL,
+  `component_id` int(11) NOT NULL,
+  `setting_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `setting_id_fk` (`setting_id`),
+  CONSTRAINT `setting_id_fk` FOREIGN KEY (`setting_id`) REFERENCES `settings` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.settings_components: ~6 rows (aproximadamente)
 DELETE FROM `settings_components`;
@@ -930,6 +1808,24 @@ INSERT INTO `settings_components` (`id`, `field`, `order`, `component_type`, `co
 	(8, 'setting', 2, 'components_row_types_settings', 2, 1);
 /*!40000 ALTER TABLE `settings_components` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.strapi_administrator
+DROP TABLE IF EXISTS `strapi_administrator`;
+CREATE TABLE IF NOT EXISTS `strapi_administrator` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(255) DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `resetPasswordToken` varchar(255) DEFAULT NULL,
+  `registrationToken` varchar(255) DEFAULT NULL,
+  `isActive` tinyint(1) DEFAULT NULL,
+  `blocked` tinyint(1) DEFAULT NULL,
+  `preferedLanguage` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `strapi_administrator_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.strapi_administrator: ~0 rows (aproximadamente)
 DELETE FROM `strapi_administrator`;
 /*!40000 ALTER TABLE `strapi_administrator` DISABLE KEYS */;
@@ -937,6 +1833,20 @@ INSERT INTO `strapi_administrator` (`id`, `firstname`, `lastname`, `username`, `
 	(1, 'David', 'Rullán Díaz', 'Cabra Kein', 'drullan.dev@gmail.com', '$2a$10$Q/YbTxgUo4YN2ocGz84zD.1uTALnUU04xJP46IZFpf0f3xenvskIC', NULL, NULL, 1, NULL, 'en'),
 	(2, 'Obscure', 'Doe', NULL, 'obscure@doe.com', '$2a$10$SvvmVogb/IEQeeVjRiDNHe8gTxGCCRphaTio0SJpEAK.hrcfmKAem', NULL, 'ef35db282e4661af2ba58871f09c7f5ee9896c1c', 1, NULL, NULL);
 /*!40000 ALTER TABLE `strapi_administrator` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.strapi_permission
+DROP TABLE IF EXISTS `strapi_permission`;
+CREATE TABLE IF NOT EXISTS `strapi_permission` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `action` varchar(255) NOT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `properties` longtext,
+  `conditions` longtext,
+  `role` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7092 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.strapi_permission: ~205 rows (aproximadamente)
 DELETE FROM `strapi_permission`;
@@ -1149,6 +2059,20 @@ INSERT INTO `strapi_permission` (`id`, `action`, `subject`, `properties`, `condi
 	(7091, 'plugins::content-manager.explorer.publish', 'application::tutorial.tutorial', '{"locales":["en","es-ES"]}', '[]', 1, '2021-09-11 23:46:51', '2021-09-11 23:46:51');
 /*!40000 ALTER TABLE `strapi_permission` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.strapi_role
+DROP TABLE IF EXISTS `strapi_role`;
+CREATE TABLE IF NOT EXISTS `strapi_role` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `strapi_role_name_unique` (`name`),
+  UNIQUE KEY `strapi_role_code_unique` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.strapi_role: ~3 rows (aproximadamente)
 DELETE FROM `strapi_role`;
 /*!40000 ALTER TABLE `strapi_role` DISABLE KEYS */;
@@ -1158,6 +2082,15 @@ INSERT INTO `strapi_role` (`id`, `name`, `code`, `description`, `created_at`, `u
 	(3, 'Author', 'strapi-author', 'Authors can manage the content they have created.', '2021-06-16 20:12:19', '2021-06-16 20:12:19');
 /*!40000 ALTER TABLE `strapi_role` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.strapi_users_roles
+DROP TABLE IF EXISTS `strapi_users_roles`;
+CREATE TABLE IF NOT EXISTS `strapi_users_roles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.strapi_users_roles: ~0 rows (aproximadamente)
 DELETE FROM `strapi_users_roles`;
 /*!40000 ALTER TABLE `strapi_users_roles` DISABLE KEYS */;
@@ -1166,20 +2099,72 @@ INSERT INTO `strapi_users_roles` (`id`, `user_id`, `role_id`) VALUES
 	(2, 2, 3);
 /*!40000 ALTER TABLE `strapi_users_roles` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.strapi_webhooks
+DROP TABLE IF EXISTS `strapi_webhooks`;
+CREATE TABLE IF NOT EXISTS `strapi_webhooks` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `url` longtext,
+  `headers` longtext,
+  `events` longtext,
+  `enabled` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.strapi_webhooks: ~0 rows (aproximadamente)
 DELETE FROM `strapi_webhooks`;
 /*!40000 ALTER TABLE `strapi_webhooks` DISABLE KEYS */;
 /*!40000 ALTER TABLE `strapi_webhooks` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.support
+DROP TABLE IF EXISTS `support`;
+CREATE TABLE IF NOT EXISTS `support` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `i18nLocale` int(11) DEFAULT NULL,
+  `locale` varchar(255) DEFAULT NULL,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `user` int(11) DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `explanation` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.support: ~0 rows (aproximadamente)
 DELETE FROM `support`;
 /*!40000 ALTER TABLE `support` DISABLE KEYS */;
 /*!40000 ALTER TABLE `support` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.support__localizations
+DROP TABLE IF EXISTS `support__localizations`;
+CREATE TABLE IF NOT EXISTS `support__localizations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `support_id` int(11) DEFAULT NULL,
+  `related_support_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.support__localizations: ~0 rows (aproximadamente)
 DELETE FROM `support__localizations`;
 /*!40000 ALTER TABLE `support__localizations` DISABLE KEYS */;
 /*!40000 ALTER TABLE `support__localizations` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.translations
+DROP TABLE IF EXISTS `translations`;
+CREATE TABLE IF NOT EXISTS `translations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `text` varchar(255) DEFAULT NULL,
+  `locale` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `key` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.translations: ~2 rows (aproximadamente)
 DELETE FROM `translations`;
@@ -1189,6 +2174,15 @@ INSERT INTO `translations` (`id`, `text`, `locale`, `created_by`, `updated_by`, 
 	(2, 'Hola mundo!', 'es-ES', 1, 1, '2021-06-20 00:38:45', '2021-06-30 00:43:59', 'Hello world');
 /*!40000 ALTER TABLE `translations` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.translations__localizations
+DROP TABLE IF EXISTS `translations__localizations`;
+CREATE TABLE IF NOT EXISTS `translations__localizations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `translation_id` int(11) DEFAULT NULL,
+  `related_translation_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.translations__localizations: ~2 rows (aproximadamente)
 DELETE FROM `translations__localizations`;
 /*!40000 ALTER TABLE `translations__localizations` DISABLE KEYS */;
@@ -1196,6 +2190,24 @@ INSERT INTO `translations__localizations` (`id`, `translation_id`, `related_tran
 	(1, 2, 1),
 	(2, 1, 2);
 /*!40000 ALTER TABLE `translations__localizations` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.tutorials
+DROP TABLE IF EXISTS `tutorials`;
+CREATE TABLE IF NOT EXISTS `tutorials` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `order` int(11) DEFAULT NULL,
+  `locale` varchar(255) DEFAULT NULL,
+  `published_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `content` longtext,
+  `name` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `tutorials_slug_unique` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.tutorials: ~6 rows (aproximadamente)
 DELETE FROM `tutorials`;
@@ -1209,6 +2221,15 @@ INSERT INTO `tutorials` (`id`, `order`, `locale`, `published_at`, `created_by`, 
 	(8, 3, 'es-ES', '2021-07-01 22:18:15', 1, 1, '2021-07-01 22:17:54', '2021-07-01 23:44:56', '<ion-slide class="md swiper-slide swiper-zoom-container hydrated swiper-slide-active" style="width: 400px;">![ica-slidebox-img-3.png](http://localhost:1337/uploads/ica_slidebox_img_3_f35b6cc725.png)<h2 class="slide-title">What is Ionic Appflow?</h2><p><b>Ionic Appflow</b> is a powerful set of services and features built on top of Ionic Framework that brings a totally new level of app development agility to mobile dev teams.</p></ion-slide>\n\n\n', 'What is Ionic Appflow?', 'what-is-ionic-appflow-1');
 /*!40000 ALTER TABLE `tutorials` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.tutorials__localizations
+DROP TABLE IF EXISTS `tutorials__localizations`;
+CREATE TABLE IF NOT EXISTS `tutorials__localizations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tutorial_id` int(11) DEFAULT NULL,
+  `related_tutorial_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.tutorials__localizations: ~6 rows (aproximadamente)
 DELETE FROM `tutorials__localizations`;
 /*!40000 ALTER TABLE `tutorials__localizations` DISABLE KEYS */;
@@ -1220,6 +2241,31 @@ INSERT INTO `tutorials__localizations` (`id`, `tutorial_id`, `related_tutorial_i
 	(5, 8, 3),
 	(6, 3, 8);
 /*!40000 ALTER TABLE `tutorials__localizations` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.upload_file
+DROP TABLE IF EXISTS `upload_file`;
+CREATE TABLE IF NOT EXISTS `upload_file` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `alternativeText` varchar(255) DEFAULT NULL,
+  `caption` varchar(255) DEFAULT NULL,
+  `width` int(11) DEFAULT NULL,
+  `height` int(11) DEFAULT NULL,
+  `formats` longtext,
+  `hash` varchar(255) NOT NULL,
+  `ext` varchar(255) DEFAULT NULL,
+  `mime` varchar(255) NOT NULL,
+  `size` decimal(10,2) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `previewUrl` varchar(255) DEFAULT NULL,
+  `provider` varchar(255) NOT NULL,
+  `provider_metadata` longtext,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.upload_file: ~14 rows (aproximadamente)
 DELETE FROM `upload_file`;
@@ -1241,6 +2287,18 @@ INSERT INTO `upload_file` (`id`, `name`, `alternativeText`, `caption`, `width`, 
 	(18, 'rabbit.jpg', '', '', 512, 512, '{"thumbnail":{"name":"thumbnail_rabbit.jpg","hash":"thumbnail_rabbit_77b4fd604b","ext":".jpg","mime":"image/jpeg","width":156,"height":156,"size":5.64,"path":null,"url":"/uploads/thumbnail_rabbit_77b4fd604b.jpg"},"small":{"name":"small_rabbit.jpg","hash":"small_rabbit_77b4fd604b","ext":".jpg","mime":"image/jpeg","width":500,"height":500,"size":45.29,"path":null,"url":"/uploads/small_rabbit_77b4fd604b.jpg"}}', 'rabbit_77b4fd604b', '.jpg', 'image/jpeg', 48.52, '/uploads/rabbit_77b4fd604b.jpg', NULL, 'local', NULL, 1, 1, '2021-07-01 21:56:23', '2021-07-01 21:56:23');
 /*!40000 ALTER TABLE `upload_file` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.upload_file_morph
+DROP TABLE IF EXISTS `upload_file_morph`;
+CREATE TABLE IF NOT EXISTS `upload_file_morph` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `upload_file_id` int(11) DEFAULT NULL,
+  `related_id` int(11) DEFAULT NULL,
+  `related_type` longtext,
+  `field` longtext,
+  `order` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.upload_file_morph: ~9 rows (aproximadamente)
 DELETE FROM `upload_file_morph`;
 /*!40000 ALTER TABLE `upload_file_morph` DISABLE KEYS */;
@@ -1255,6 +2313,21 @@ INSERT INTO `upload_file_morph` (`id`, `upload_file_id`, `related_id`, `related_
 	(39, 17, 6, 'users-permissions_user', 'userAvatar', 1),
 	(41, 18, 7, 'users-permissions_user', 'userAvatar', 1);
 /*!40000 ALTER TABLE `upload_file_morph` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.users-permissions_permission
+DROP TABLE IF EXISTS `users-permissions_permission`;
+CREATE TABLE IF NOT EXISTS `users-permissions_permission` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) NOT NULL,
+  `controller` varchar(255) NOT NULL,
+  `action` varchar(255) NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `policy` varchar(255) DEFAULT NULL,
+  `role` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=551 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.users-permissions_permission: ~476 rows (aproximadamente)
 DELETE FROM `users-permissions_permission`;
@@ -1800,6 +2873,21 @@ INSERT INTO `users-permissions_permission` (`id`, `type`, `controller`, `action`
 	(550, 'application', 'event', 'update', 0, '', 2, NULL, NULL);
 /*!40000 ALTER TABLE `users-permissions_permission` ENABLE KEYS */;
 
+-- Volcando estructura para tabla strapi-for-ionic.users-permissions_role
+DROP TABLE IF EXISTS `users-permissions_role`;
+CREATE TABLE IF NOT EXISTS `users-permissions_role` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `menu` int(11) DEFAULT NULL,
+  `menu_item` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users-permissions_role_type_unique` (`type`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
 -- Volcando datos para la tabla strapi-for-ionic.users-permissions_role: ~2 rows (aproximadamente)
 DELETE FROM `users-permissions_role`;
 /*!40000 ALTER TABLE `users-permissions_role` DISABLE KEYS */;
@@ -1807,6 +2895,32 @@ INSERT INTO `users-permissions_role` (`id`, `name`, `description`, `type`, `crea
 	(1, 'Authenticated', 'Default role given to authenticated user.', 'authenticated', NULL, NULL, NULL, NULL),
 	(2, 'Public', 'Default role given to unauthenticated user.', 'public', NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `users-permissions_role` ENABLE KEYS */;
+
+-- Volcando estructura para tabla strapi-for-ionic.users-permissions_user
+DROP TABLE IF EXISTS `users-permissions_user`;
+CREATE TABLE IF NOT EXISTS `users-permissions_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `provider` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `resetPasswordToken` varchar(255) DEFAULT NULL,
+  `confirmationToken` varchar(255) DEFAULT NULL,
+  `confirmed` tinyint(1) DEFAULT NULL,
+  `blocked` tinyint(1) DEFAULT NULL,
+  `role` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `darkModeEnabled` tinyint(1) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `terms` tinyint(1) DEFAULT NULL,
+  `privacy` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users-permissions_user_username_unique` (`username`),
+  UNIQUE KEY `users_permissions_user_slug_unique` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla strapi-for-ionic.users-permissions_user: ~7 rows (aproximadamente)
 DELETE FROM `users-permissions_user`;
